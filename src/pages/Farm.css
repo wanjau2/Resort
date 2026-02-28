@@ -1,0 +1,283 @@
+.farm-page {
+  padding-top: 0;
+}
+
+/* Intro Stats */
+.farm-intro {
+  padding: 4rem 0;
+  background: white;
+  margin-top: -80px;
+  position: relative;
+  z-index: 10;
+}
+
+.intro-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+}
+
+.stat {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stat svg {
+  color: #4a7c43;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #1a3518;
+}
+
+.stat-label {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+/* Farm Areas */
+.farm-areas {
+  padding: 6rem 0;
+  background: #f8faf7;
+}
+
+.areas-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.area-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.area-card:hover {
+  transform: translateY(-5px);
+}
+
+.area-image {
+  height: 100%;
+  min-height: 250px;
+  background-size: cover;
+  background-position: center;
+}
+
+.area-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.area-content h3 {
+  font-size: 1.4rem;
+  color: #1a3518;
+  margin-bottom: 0.75rem;
+}
+
+.area-content p {
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.area-products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.product-badge {
+  background: linear-gradient(135deg, #e8f5e3 0%, #c8e6c0 100%);
+  color: #2d5a27;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Tours Section */
+.tours-section {
+  padding: 6rem 0;
+  background: white;
+}
+
+.tours-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.tour-card {
+  background: #f8faf7;
+  padding: 2rem;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.tour-card:hover {
+  border-color: #4a7c43;
+  box-shadow: 0 10px 40px rgba(74, 124, 67, 0.15);
+}
+
+.tour-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.tour-header h3 {
+  color: #1a3518;
+  font-size: 1.25rem;
+}
+
+.tour-price {
+  background: linear-gradient(135deg, #4a7c43 0%, #2d5a27 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.tour-description {
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.tour-details {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.tour-details span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tour-card .btn {
+  width: 100%;
+  text-align: center;
+  padding: 0.875rem;
+  border-radius: 10px;
+}
+
+/* Philosophy Section */
+.philosophy-section {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, #e8f5e3 0%, #d4eacd 100%);
+}
+
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.philosophy-content h2 {
+  font-size: 2.5rem;
+  color: #1a3518;
+  margin: 1rem 0;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.philosophy-content p {
+  color: #555;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.philosophy-list {
+  list-style: none;
+  padding: 0;
+}
+
+.philosophy-list li {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.philosophy-list li strong {
+  color: #2d5a27;
+  margin-bottom: 0.25rem;
+}
+
+.philosophy-list li span {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.philosophy-images img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .areas-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .intro-stats {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 2rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  .area-card {
+    grid-template-columns: 1fr;
+  }
+
+  .area-image {
+    min-height: 200px;
+  }
+
+  .philosophy-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .philosophy-images {
+    order: -1;
+  }
+}
+
+@media (max-width: 576px) {
+  .tours-grid {
+    grid-template-columns: 1fr;
+  }
+}
