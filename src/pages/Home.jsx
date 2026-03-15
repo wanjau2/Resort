@@ -32,10 +32,10 @@ const Home = () => {
     },
     {
       icon: UtensilsCrossed,
-      title: 'Farm-to-Table Dining',
-      description: 'Savor fresh, organic meals prepared with ingredients from our own farm.',
-      link: '/restaurant',
-      image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800'
+      title: 'BBQ Experience',
+      description: 'Enjoy smoky, farm-fresh BBQ plates grilled over open fire every evening.',
+      link: '/bbq',
+      image: 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=800'
     },
     {
       icon: ShoppingBasket,
@@ -49,7 +49,7 @@ const Home = () => {
   const testimonials = [
     {
       name: 'Sarah Johnson',
-      text: 'An absolutely magical experience! The camping sites are pristine and the farm-to-table restaurant is incredible.',
+      text: 'An absolutely magical experience! The camping sites are pristine and the evening BBQ is incredible.',
       rating: 5,
       location: 'New York'
     },
@@ -152,7 +152,7 @@ const Home = () => {
                 </div>
                 <div className="about-feature">
                   <UtensilsCrossed />
-                  <span>Farm-to-Table Cuisine</span>
+                  <span>Farm-Fresh BBQ</span>
                 </div>
               </div>
               <Link to="/farm" className="btn btn-primary">

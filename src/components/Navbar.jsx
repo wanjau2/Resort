@@ -13,7 +13,7 @@ const Navbar = () => {
     { path: '/rooms', label: 'Rooms' },
     { path: '/camp', label: 'Camping' },
     { path: '/farm', label: 'Farm' },
-    { path: '/restaurant', label: 'Restaurant' },
+    { path: '/bbq', label: 'BBQ' },
     { path: '/shop', label: 'Farm Shop' },
   ];
 

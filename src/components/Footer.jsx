@@ -13,7 +13,7 @@ const Footer = () => {
           </div>
           <p className="footer-desc">
             Experience nature at its finest. Our resort offers the perfect blend of 
-            adventure, relaxation, and farm-to-table dining in a stunning natural setting.
+            adventure, relaxation, and farm-fresh BBQ in a stunning natural setting.
           </p>
           <div className="social-links">
             <a href="#" aria-label="Facebook"><Facebook /></a>
@@ -28,8 +28,9 @@ const Footer = () => {
             <li><Link to="/rooms">Accommodation</Link></li>
             <li><Link to="/camp">Camping</Link></li>
             <li><Link to="/farm">Farm Tours</Link></li>
-            <li><Link to="/restaurant">Restaurant</Link></li>
+            <li><Link to="/bbq">BBQ</Link></li>
             <li><Link to="/shop">Farm Shop</Link></li>
+            <li><Link to="/admin">Admin Portal</Link></li>
           </ul>
         </div>
 

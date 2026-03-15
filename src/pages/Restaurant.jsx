@@ -1,38 +1,38 @@
 import { Link } from 'react-router-dom';
-import { Clock, UtensilsCrossed, Leaf, Wine, Star, Calendar } from 'lucide-react';
+import { Clock, UtensilsCrossed, Leaf, Star, Calendar, Flame } from 'lucide-react';
 import Hero from '../components/Hero';
 import './Restaurant.css';
 
-const Restaurant = () => {
+const Bbq = () => {
   const menuCategories = [
     {
-      name: 'Breakfast',
-      time: '7:00 AM - 10:30 AM',
+      name: 'Grill Lunch',
+      time: '12:00 PM - 3:30 PM',
       items: [
-        { name: 'Farm Fresh Eggs Benedict', price: 16, description: 'Free-range eggs, house-made hollandaise, fresh herbs' },
-        { name: 'Organic Pancake Stack', price: 14, description: 'Buttermilk pancakes, maple syrup, seasonal berries' },
-        { name: 'Garden Vegetable Frittata', price: 15, description: 'Farm vegetables, goat cheese, fresh salad' },
-        { name: 'Granola Bowl', price: 12, description: 'House-made granola, yogurt, honey, fresh fruits' }
+        { name: 'Smoked Pulled Pork Sandwich', price: 18, description: 'House-smoked pork, slaw, pickles, toasted bun' },
+        { name: 'Grilled Farm Chicken Wrap', price: 16, description: 'Herb-marinated chicken, greens, fire-roasted peppers' },
+        { name: 'Charred Veggie Skewers', price: 14, description: 'Seasonal vegetables, garlic oil, herb yogurt dip' },
+        { name: 'BBQ Beef Burger', price: 19, description: 'Grass-fed beef, cheddar, onion jam, smokehouse sauce' }
       ]
     },
     {
-      name: 'Lunch',
-      time: '11:30 AM - 3:00 PM',
+      name: 'Smokehouse Dinner',
+      time: '5:30 PM - 10:00 PM',
       items: [
-        { name: 'Farm Salad', price: 16, description: 'Mixed greens, seasonal vegetables, herb vinaigrette' },
-        { name: 'Grilled Vegetable Sandwich', price: 18, description: 'Roasted vegetables, pesto, artisan bread' },
-        { name: 'Herb-Crusted Chicken', price: 22, description: 'Free-range chicken, roasted potatoes, seasonal vegetables' },
-        { name: 'Mushroom Risotto', price: 20, description: 'Wild mushrooms, parmesan, truffle oil' }
+        { name: '12-Hour Smoked Brisket', price: 32, description: 'Slow-smoked brisket, corn bread, roasted farm vegetables' },
+        { name: 'Rack of BBQ Ribs', price: 30, description: 'Pork ribs glazed with signature valley BBQ sauce' },
+        { name: 'Fire-Grilled Trout', price: 27, description: 'Lake trout, lemon herb butter, grilled asparagus' },
+        { name: 'Mixed Grill Platter', price: 36, description: 'Chicken, sausage, beef cuts, house pickles, sauces' }
       ]
     },
     {
-      name: 'Dinner',
-      time: '5:30 PM - 9:30 PM',
+      name: 'Sides & Sauces',
+      time: 'Available all day',
       items: [
-        { name: 'Pan-Seared Trout', price: 28, description: 'Lake trout, lemon butter, asparagus, rice pilaf' },
-        { name: 'Grass-Fed Ribeye', price: 38, description: '12oz ribeye, herb butter, roasted vegetables' },
-        { name: 'Seasonal Tasting Menu', price: 65, description: '5-course meal showcasing the best of the season' },
-        { name: 'Vegetable Wellington', price: 26, description: 'Roasted vegetables, puff pastry, mushroom sauce' }
+        { name: 'Smoked Mac & Cheese', price: 9, description: 'Three-cheese blend with a crisp smoked topping' },
+        { name: 'Charcoal Corn on the Cob', price: 7, description: 'Fire-charred sweet corn, lime-chili butter' },
+        { name: 'Farm Slaw', price: 6, description: 'Crunchy cabbage slaw with apple cider dressing' },
+        { name: 'Signature BBQ Sauce Flight', price: 8, description: 'Classic, honey-chipotle, and mustard herb sauces' }
       ]
     }
   ];
@@ -40,34 +40,34 @@ const Restaurant = () => {
   const specialMenus = [
     {
       icon: Star,
-      name: 'Sunday Brunch',
-      description: 'Our legendary farm brunch featuring unlimited mimosas and a stunning buffet spread.',
-      time: 'Sundays 10 AM - 2 PM',
-      price: '$45 per person'
-    },
-    {
-      icon: Wine,
-      name: 'Wine Pairing Dinner',
-      description: 'Monthly dinner featuring local wines expertly paired with seasonal dishes.',
-      time: 'Last Friday of each month',
-      price: '$85 per person'
+      name: 'Sunset BBQ Night',
+      description: 'Open-fire grill stations, live acoustic music, and unlimited sides every Saturday evening.',
+      time: 'Saturdays 6 PM - 10 PM',
+      price: '$39 per person'
     },
     {
       icon: Calendar,
-      name: 'Farm Table Experience',
-      description: 'Dine at a long table in our garden with a family-style feast.',
-      time: 'Saturdays 6 PM (seasonal)',
-      price: '$75 per person'
+      name: 'Family Grill Feast',
+      description: 'Shared smokehouse platters designed for groups with kid-friendly options included.',
+      time: 'Fridays 5 PM - 9 PM',
+      price: '$95 per table'
+    },
+    {
+      icon: Flame,
+      name: 'Pitmaster Tasting Board',
+      description: 'Chef-curated tasting of smoked meats, grilled vegetables, and house sauces.',
+      time: 'Daily from 7 PM',
+      price: '$52 per person'
     }
   ];
 
   return (
     <div className="restaurant-page">
       <Hero
-        title="Farm-to-Table Dining"
-        subtitle="Savor the freshest flavors of the valley. Every dish tells a story of local ingredients, sustainable practices, and culinary passion."
-        backgroundImage="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920"
-        primaryBtn={{ text: 'Reserve a Table', link: '/book' }}
+        title="Valley BBQ Experience"
+        subtitle="Gather around the fire for slow-smoked meats, grilled farm produce, and bold house-made sauces."
+        backgroundImage="https://images.unsplash.com/photo-1558030006-450675393462?w=1920"
+        primaryBtn={{ text: 'Reserve a BBQ Table', link: '/book' }}
         secondaryBtn={{ text: 'View Menu', link: '#menu' }}
       />
 
@@ -75,42 +75,41 @@ const Restaurant = () => {
         <div className="container">
           <div className="intro-grid">
             <div className="intro-image">
-              <img 
-                src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=600" 
-                alt="Restaurant interior" 
+              <img
+                src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600"
+                alt="BBQ grill station"
               />
               <div className="image-badge">
                 <Leaf size={24} />
-                <span>100% Organic</span>
+                <span>Farm Sourced</span>
               </div>
             </div>
             <div className="intro-content">
-              <span className="section-tag">Our Restaurant</span>
-              <h2>Where Every Meal is a Celebration</h2>
+              <span className="section-tag">Our BBQ Spot</span>
+              <h2>Where Smoke, Fire, and Flavor Meet</h2>
               <p>
-                The Valley Kitchen is more than a restaurant—it's a celebration of 
-                local agriculture and culinary excellence. Our chef works directly 
-                with our farm team to create menus that honor the seasons and 
-                showcase the incredible ingredients grown right here.
+                Our open-air BBQ kitchen celebrates local ingredients and traditional
+                fire cooking. The team works directly with the farm to bring fresh cuts,
+                seasonal produce, and bold flavors to every plate served.
               </p>
               <div className="restaurant-features">
                 <div className="feature">
                   <UtensilsCrossed size={24} />
                   <div>
-                    <h4>Chef's Table Available</h4>
-                    <p>Watch our chefs at work</p>
+                    <h4>Live Grill Stations</h4>
+                    <p>Watch every dish finished over fire</p>
                   </div>
                 </div>
                 <div className="feature">
                   <Clock size={24} />
                   <div>
                     <h4>Open Daily</h4>
-                    <p>Breakfast, lunch & dinner</p>
+                    <p>Lunch and evening smokehouse service</p>
                   </div>
                 </div>
               </div>
               <Link to="/book" className="btn btn-primary">
-                Make a Reservation
+                Book a BBQ Experience
               </Link>
             </div>
           </div>
@@ -120,11 +119,10 @@ const Restaurant = () => {
       <section id="menu" className="menu-section">
         <div className="container">
           <div className="section-header">
-            <span className="section-tag">Our Menu</span>
-            <h2 className="section-title">Seasonal Selections</h2>
+            <span className="section-tag">BBQ Menu</span>
+            <h2 className="section-title">Smoked &amp; Grilled Favorites</h2>
             <p className="section-subtitle">
-              Menu changes with the seasons to reflect the freshest ingredients 
-              available from our farm and local partners.
+              Our BBQ menu rotates with seasonal farm produce while keeping your smokehouse favorites on the grill.
             </p>
           </div>
 
@@ -157,8 +155,8 @@ const Restaurant = () => {
       <section className="special-section">
         <div className="container">
           <div className="section-header">
-            <span className="section-tag">Special Events</span>
-            <h2 className="section-title">Unique Dining Experiences</h2>
+            <span className="section-tag">BBQ Nights</span>
+            <h2 className="section-title">Fire &amp; Flavor Events</h2>
           </div>
 
           <div className="specials-grid">
@@ -186,23 +184,23 @@ const Restaurant = () => {
         <div className="container">
           <div className="section-header">
             <span className="section-tag">Gallery</span>
-            <h2 className="section-title">A Taste of Our Kitchen</h2>
+            <h2 className="section-title">From Pit to Plate</h2>
           </div>
           <div className="gallery-grid">
             <div className="gallery-item large">
-              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800" alt="Dish" />
+              <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=800" alt="BBQ platter" />
             </div>
             <div className="gallery-item">
-              <img src="https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400" alt="Dish" />
+              <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400" alt="Smoked ribs" />
             </div>
             <div className="gallery-item">
-              <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=400" alt="Dish" />
+              <img src="https://images.unsplash.com/photo-1529692236671-f1dc0f8e84ac?w=400" alt="Grilled meat" />
             </div>
             <div className="gallery-item">
-              <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=400" alt="Dish" />
+              <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=400" alt="BBQ side dish" />
             </div>
             <div className="gallery-item">
-              <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?w=400" alt="Dish" />
+              <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400" alt="Outdoor BBQ" />
             </div>
           </div>
         </div>
@@ -211,4 +209,4 @@ const Restaurant = () => {
   );
 };
 
-export default Restaurant;
+export default Bbq;

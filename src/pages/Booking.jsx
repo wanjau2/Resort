@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Calendar, Users, BedDouble, Tent, UtensilsCrossed, MapPin, Phone, Mail, CheckCircle, X, Clock, AlertCircle } from 'lucide-react';
 import { useBooking } from '../context/BookingContext';
 import './Booking.css';
@@ -9,6 +9,7 @@ const Booking = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showMyBookings, setShowMyBookings] = useState(false);
   const [lastBooking, setLastBooking] = useState(null);
+  const [submitError, setSubmitError] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -39,10 +40,19 @@ const Booking = () => {
   ];
 
   const timeSlots = [
-    { value: 'breakfast', label: 'Breakfast (7-10:30 AM)' },
-    { value: 'lunch', label: 'Lunch (11:30 AM - 3 PM)' },
-    { value: 'dinner', label: 'Dinner (5:30-9:30 PM)' }
+    { value: 'lunch', label: 'Grill Lunch (12:00 PM - 3:30 PM)' },
+    { value: 'early-evening', label: 'Early Evening Grill (4:00 PM - 6:30 PM)' },
+    { value: 'dinner', label: 'Smokehouse Dinner (6:30 PM - 10:00 PM)' }
   ];
+
+  const isFoodBooking = (type) => type === 'bbq' || type === 'restaurant';
+
+  const formatBookingType = (type) => {
+    if (type === 'bbq' || type === 'restaurant') return 'BBQ';
+    if (type === 'room') return 'Room';
+    if (type === 'camp') return 'Camping';
+    return type;
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -81,13 +91,14 @@ const Booking = () => {
     return total;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+    setSubmitError('');
+
     const bookingData = {
       type: bookingType,
       ...formData,
-      nights: bookingType !== 'restaurant' ? calculateNights() : null,
+      nights: !isFoodBooking(bookingType) ? calculateNights() : null,
       pricePerNight: getSelectedPrice(),
       total: calculateTotal(),
       accommodation: bookingType === 'room' 
@@ -95,26 +106,29 @@ const Booking = () => {
         : bookingType === 'camp' 
           ? campSites.find(s => s.value === formData.campSite)?.label 
           : `Table for ${formData.guests}`,
-      timeSlot: bookingType === 'restaurant' ? timeSlots.find(t => t.value === formData.time)?.label : null
+      timeSlot: isFoodBooking(bookingType) ? timeSlots.find(t => t.value === formData.time)?.label : null
     };
 
-    addBooking(bookingData);
-    setLastBooking(bookingData);
-    setShowConfirmation(true);
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      checkIn: '',
-      checkOut: '',
-      guests: 2,
-      roomType: '',
-      campSite: '',
-      time: '',
-      specialRequests: ''
-    });
+    try {
+      const savedBooking = await addBooking(bookingData);
+      setLastBooking(savedBooking);
+      setShowConfirmation(true);
+      
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        checkIn: '',
+        checkOut: '',
+        guests: 2,
+        roomType: '',
+        campSite: '',
+        time: '',
+        specialRequests: ''
+      });
+    } catch (error) {
+      setSubmitError(error.message || 'We could not save your booking right now. Please try again.');
+    }
   };
 
   const getStatusColor = (status) => {
@@ -155,11 +169,11 @@ const Booking = () => {
                   <span>Camping Site</span>
                 </button>
                 <button
-                  className={`type-tab ${bookingType === 'restaurant' ? 'active' : ''}`}
-                  onClick={() => setBookingType('restaurant')}
+                  className={`type-tab ${bookingType === 'bbq' ? 'active' : ''}`}
+                  onClick={() => setBookingType('bbq')}
                 >
                   <UtensilsCrossed size={20} />
-                  <span>Restaurant</span>
+                  <span>BBQ</span>
                 </button>
               </div>
 
@@ -167,8 +181,23 @@ const Booking = () => {
                 <h2>
                   {bookingType === 'room' && 'Reserve a Room'}
                   {bookingType === 'camp' && 'Book a Campsite'}
-                  {bookingType === 'restaurant' && 'Reserve a Table'}
+                  {bookingType === 'bbq' && 'Reserve a BBQ Table'}
                 </h2>
+                {submitError && (
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    marginBottom: '1rem',
+                    padding: '0.9rem 1rem',
+                    borderRadius: '14px',
+                    background: '#fff0f0',
+                    color: '#a23a3a'
+                  }}>
+                    <AlertCircle size={18} />
+                    <span>{submitError}</span>
+                  </div>
+                )}
 
                 <div className="form-row">
                   <div className="form-group">
@@ -226,7 +255,7 @@ const Booking = () => {
 
                 <div className="form-row">
                   <div className="form-group">
-                    <label>{bookingType === 'restaurant' ? 'Date' : 'Check-in Date'}</label>
+                    <label>{isFoodBooking(bookingType) ? 'Date' : 'Check-in Date'}</label>
                     <div className="date-input">
                       <Calendar size={18} />
                       <input
@@ -239,7 +268,7 @@ const Booking = () => {
                       />
                     </div>
                   </div>
-                  {bookingType !== 'restaurant' && (
+                  {!isFoodBooking(bookingType) && (
                     <div className="form-group">
                       <label>Check-out Date</label>
                       <div className="date-input">
@@ -255,7 +284,7 @@ const Booking = () => {
                       </div>
                     </div>
                   )}
-                  {bookingType === 'restaurant' && (
+                  {isFoodBooking(bookingType) && (
                     <div className="form-group">
                       <label>Preferred Time</label>
                       <select 
@@ -325,7 +354,7 @@ const Booking = () => {
                 </div>
 
                 {/* Price Summary */}
-                {bookingType !== 'restaurant' && calculateNights() > 0 && getSelectedPrice() > 0 && (
+                {!isFoodBooking(bookingType) && calculateNights() > 0 && getSelectedPrice() > 0 && (
                   <div className="price-summary">
                     <div className="price-row">
                       <span>${getSelectedPrice()} x {calculateNights()} night{calculateNights() > 1 ? 's' : ''}</span>
@@ -425,13 +454,13 @@ const Booking = () => {
             <div className="booking-details">
               <div className="detail-row">
                 <span>Booking Type:</span>
-                <span className="capitalize">{lastBooking.type}</span>
+                <span>{formatBookingType(lastBooking.type)}</span>
               </div>
               <div className="detail-row">
                 <span>Accommodation:</span>
                 <span>{lastBooking.accommodation}</span>
               </div>
-              {lastBooking.type !== 'restaurant' ? (
+              {!isFoodBooking(lastBooking.type) ? (
                 <>
                   <div className="detail-row">
                     <span>Check-in:</span>
@@ -501,7 +530,7 @@ const Booking = () => {
                 bookings.map((booking) => (
                   <div key={booking.id} className="booking-card">
                     <div className="booking-card-header">
-                      <span className="booking-type-badge">{booking.type}</span>
+                      <span className="booking-type-badge">{formatBookingType(booking.type)}</span>
                       <span 
                         className="booking-status"
                         style={{ color: getStatusColor(booking.status) }}
@@ -511,7 +540,7 @@ const Booking = () => {
                     </div>
                     <h4>{booking.accommodation}</h4>
                     <div className="booking-card-details">
-                      {booking.type !== 'restaurant' ? (
+                      {!isFoodBooking(booking.type) ? (
                         <p>
                           {new Date(booking.checkIn).toLocaleDateString()} - {new Date(booking.checkOut).toLocaleDateString()}
                           ({booking.nights} night{booking.nights > 1 ? 's' : ''})

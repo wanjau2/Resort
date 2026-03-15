@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer, useEffect } from 'react';
+import { adminService } from '../services/adminService';
 
 const BookingContext = createContext();
 
@@ -7,12 +8,7 @@ const bookingReducer = (state, action) => {
     case 'ADD_BOOKING':
       return {
         ...state,
-        bookings: [...state.bookings, { 
-          ...action.payload, 
-          id: Date.now(),
-          createdAt: new Date().toISOString(),
-          status: 'pending'
-        }]
+        bookings: [action.payload, ...state.bookings]
       };
     case 'UPDATE_BOOKING_STATUS':
       return {
@@ -49,29 +45,40 @@ const initialState = {
 export const BookingProvider = ({ children }) => {
   const [state, dispatch] = useReducer(bookingReducer, initialState);
 
-  // Load bookings from localStorage on mount
   useEffect(() => {
-    const savedBookings = localStorage.getItem('resortBookings');
-    if (savedBookings) {
-      dispatch({ type: 'LOAD_BOOKINGS', payload: JSON.parse(savedBookings) });
-    }
+    let isMounted = true;
+
+    const loadBookings = async () => {
+      try {
+        const bookings = await adminService.getBookings();
+        if (isMounted) {
+          dispatch({ type: 'LOAD_BOOKINGS', payload: bookings });
+        }
+      } catch (error) {
+        console.error('Unable to load bookings', error);
+      }
+    };
+
+    loadBookings();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  // Save bookings to localStorage on change
-  useEffect(() => {
-    localStorage.setItem('resortBookings', JSON.stringify(state.bookings));
-  }, [state.bookings]);
-
-  const addBooking = (bookingData) => {
-    dispatch({ type: 'ADD_BOOKING', payload: bookingData });
-    return true;
+  const addBooking = async (bookingData) => {
+    const savedBooking = await adminService.createBooking(bookingData);
+    dispatch({ type: 'ADD_BOOKING', payload: savedBooking });
+    return savedBooking;
   };
 
-  const cancelBooking = (bookingId) => {
+  const cancelBooking = async (bookingId) => {
+    await adminService.updateBookingStatus(bookingId, 'cancelled');
     dispatch({ type: 'CANCEL_BOOKING', payload: bookingId });
   };
 
-  const updateBookingStatus = (bookingId, status) => {
+  const updateBookingStatus = async (bookingId, status) => {
+    await adminService.updateBookingStatus(bookingId, status);
     dispatch({ type: 'UPDATE_BOOKING_STATUS', payload: { id: bookingId, status } });
   };
 
